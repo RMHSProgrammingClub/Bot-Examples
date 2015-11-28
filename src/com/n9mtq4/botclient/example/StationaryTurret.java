@@ -52,7 +52,7 @@ public class StationaryTurret {
 	private static int getTurnAmount(int x, int y, int angle, int x1, int y1) {
 		
 		double newAngle = Math.atan2(y - y1, x - x1); // calculate desired angle
-		return (int) (newAngle - angle); // return the difference
+		return (int) (Math.toDegrees(newAngle) - angle); // return the difference
 		
 	}
 	
