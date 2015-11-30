@@ -25,21 +25,15 @@ public class StationaryTurret {
 //			lets process the vision
 			for (WorldObject object : bot.getVision()) {
 				
-//				now, lets shoot at other bots
-				if (object.isBot()) {
-					Bot target = (Bot) object;
-					
-//					make sure it is an enemy
-					if (target.getTeam() != game.getTeam()) {
-						
-//						calculate how much we need to turn
-						int turnAmount = getTurnAmount(bot.getX(), bot.getY(), bot.getAngle(), target.getX(), target.getY());
-						bot.turn(turnAmount); // then turn but that amount
-						bot.shoot(); // and shoot!
-						
-					}
-					
-				}
+				if (!object.isBot()) continue; // make what we see is a bot
+				Bot target = (Bot) object;
+				
+				if (target.getTeam() == game.getTeam()) continue; // make sure we don't shoot our own bots
+				
+//				calculate how much we need to turn
+				int turnAmount = getTurnAmount(bot.getX(), bot.getY(), bot.getAngle(), target.getX(), target.getY());
+				bot.turn(turnAmount); // then turn but that amount
+				bot.shoot(); // and shoot towards the target bot
 				
 			}
 			
