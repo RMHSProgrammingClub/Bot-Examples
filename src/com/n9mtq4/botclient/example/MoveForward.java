@@ -1,5 +1,6 @@
 package com.n9mtq4.botclient.example;
 
+import com.n9mtq4.botclient.CantPerformActionException;
 import com.n9mtq4.botclient.ControllableBot;
 import com.n9mtq4.botclient.Game;
 
@@ -23,7 +24,11 @@ public class MoveForward {
 			
 //			team 1 is on the left, and 2 on the right
 //			make sure to invert the x if you are team 2
-			bot.move(game.getTeam() == 1 ? 1 : -1, 0); // move forward
+			try {
+				bot.move(0, game.getTeam() == 1 ? 1 : -1); // move forward
+			}catch (CantPerformActionException e) {
+				System.err.println(e.getMessage());
+			}
 			
 			game.endTurn(bot); // end your turn
 			

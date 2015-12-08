@@ -1,5 +1,6 @@
 package com.n9mtq4.botclient.example;
 
+import com.n9mtq4.botclient.CantPerformActionException;
 import com.n9mtq4.botclient.ControllableBot;
 import com.n9mtq4.botclient.Game;
 import com.n9mtq4.botclient.world.Bot;
@@ -32,8 +33,11 @@ public class StationaryTurret {
 				
 //				calculate how much we need to turn
 				int turnAmount = getTurnAmount(bot.getX(), bot.getY(), bot.getAngle(), target.getX(), target.getY());
-				bot.turn(turnAmount); // then turn but that amount
-				bot.shoot(); // and shoot towards the target bot
+				try {
+					bot.turn(turnAmount).shoot(); // turn by that amount, and shoot
+				}catch (CantPerformActionException e) {
+					System.err.println(e.getMessage());
+				}
 				
 			}
 			
